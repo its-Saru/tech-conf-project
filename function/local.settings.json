@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=techconfprojectbcd5;AccountKey=L3rLXSfZKHZxoG4MLW3JlCjin/ReHzTkYJniW+aKPhCetKtwgk7ch3xnWsuDN2c8lafZolU6sKK2+AStsQSI2Q==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "FUNCTIONS_EXTENSION_VERSION": "~4",
+    "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "DefaultEndpointsProtocol=https;AccountName=techconfprojectbcd5;AccountKey=L3rLXSfZKHZxoG4MLW3JlCjin/ReHzTkYJniW+aKPhCetKtwgk7ch3xnWsuDN2c8lafZolU6sKK2+AStsQSI2Q==;EndpointSuffix=core.windows.net",
+    "WEBSITE_CONTENTSHARE": "techconffunctionbb1d",
+    "DB_URL": "postgresql://saruadmin@tech-conf-server:Thesalman101@tech-conf-server.postgres.database.azure.com/techconfdb",
+    "techconfbus_SERVICEBUS": "Endpoint=sb://tech-conf-bus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=W/TlHHpFdZ4nmC07dUxGuMn9zWoz2nFVvtIS/wc3Ai4="
+  }
+}

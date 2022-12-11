@@ -5,5 +5,5 @@
 azure-functions
 psycopg2
 sendgrid
-azure-servicebus==0.50.3
+
 

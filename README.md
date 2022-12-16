@@ -71,3 +71,5 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 ## Architecture Explanation
 After a thorough cost analysis we can conclude that the Techconf app is lightweight. Additionally, sending notification emails through the Azure Web App should be fine when the user count is low.
 Higher user count would transalate to slower loading times and higher cost. Hence, it is wise to move sending email as a backend process (Service Bus Function in this case), that would help maintain cost effenciency and load times.
+
+For that, I chose Azure App service free tier (F1) as it is most optimal to run the lightweight application, while having room for scalibility if needed. As for backend, Azure Postgres was required, having it at basic service tier was enough for storage. For Azure functions, consumption plan was best as it charges depending on triggers, and the app workload is within the free consumption limit. Lastly, Azure service bus is used to send emails to as many recipients. Compared to the old architecture (VM architecture), it is more cost effective and effecient, increasing load speed during high load.

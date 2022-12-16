@@ -14,39 +14,39 @@ def main(msg: func.ServiceBusMessage):
 
     # TODO: Get connection to database
     connect = psycopg2.connect(database="techconfdb",user="saruadmin@tech-conf-server",password="Thesalman101",host="tech-conf-server.postgres.database.azure.com")
-    #postgresql://saruadmin@tech-conf-server:Thesalman101@tech-conf-server.postgres.database.azure.com/techconfdb
     cursor = connect.cursor()
     logging.info("Connection established")
- #cursor.execute('SELECT message,subject FROM notification WHERE id=%s;'.format(notification_id,))
     try:
         # TODO: Get notification message and subject from database using the notification_id
        
-        cursor.execute('SELECT * FROM notification WHERE id = %s;', (notification_id,))
-        notification = cursor.fetchone()
+        cursor.execute('SELECT message,subject FROM notification WHERE id = %s;', (notification_id,))
         
+        messageContent, notification = cursor.fetchone()
+        print(notification)
         # TODO: Get attendees email and name
         cursor.execute('SELECT first_name, last_name, email FROM attendee;')
         attendees = cursor.fetchall()
 
         # TODO: Loop through each attendee and send an email with a personalized subject
         for attendee in attendees:
-          message = Mail(
+            message = Mail(
               from_email='realdormat@gmail.com',
               to_emails=attendee[2],
-              subject='{} {}'.format(attendee[1], notification),
-              html_content=notification)
+              subject='{}: {}'.format(attendee[0], notification),
+              html_content=messageContent)
         try:
               sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
               response = sg.send(message)
+              print(response)
               print(response.status_code,response.body,response.headers)
         except Exception as e:
             print(str(e))
 
         notificationDate = datetime.utcnow()
-        notificationInfo = 'Notified {} attendees'.format(len(attendees))
+        notificationInfo = "Notified {} attendees".format(len(attendees))
 
         # TODO: Update the notification table by setting the completed date and updating the status with the total number of attendees notified
-        cursor.execute('UPDATE notification SET status = %s, completed_date = %s WHERE id = %s;'.format(notificationInfo, notificationDate, notification_id))        
+        cursor.execute("UPDATE notification SET status = %s, completed_date = %s WHERE id = %s;",(notificationInfo, notificationDate, notification_id))        
         connect.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         logging.error(error)
